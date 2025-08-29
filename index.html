@@ -10,14 +10,20 @@
   <meta property="og:description" content="GoodLuck with the Date." />
   <meta property="og:image" content="https://sk4ie.github.io/Character-choices-/preview.png" />
   <meta property="og:url" content="https://sk4ie.github.io/Character-choices-" />
-  <meta property="og:type" content="https://mazoku.cc" />
+  <meta property="og:type" content="website" />
   
+  <!-- Additional Twitter Card tags (optional but recommended) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Date Guide & Chart" />
+  <meta name="twitter:description" content="GoodLuck with the Date." />
+  <meta name="twitter:image" content="https://sk4ie.github.io/Character-choices-/preview.png" />
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
       margin: 0;
       padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .container {
@@ -29,7 +35,63 @@
     h1 {
       text-align: center;
       margin-bottom: 10px;
-      color: #333;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .theme-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .theme-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "☀️";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    input:checked + .slider {
+      background-color: #4da6ff;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+      content: "🌙";
     }
 
     .search-box {
@@ -44,34 +106,25 @@
       padding: 10px;
       font-size: 16px;
       border-radius: 8px;
-      border: 1px solid #ccc;
+      border: 1px solid;
       outline: none;
-      transition: border 0.2s ease-in-out;
-    }
-
-    .search-box input:focus {
-      border-color: #0077cc;
+      transition: all 0.3s ease;
     }
 
     .card {
-      background-color: #fff;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 16px;
       margin-bottom: 20px;
-      transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease;
+      border: 1px solid;
     }
 
     .card h2 {
       margin: 0;
-      color: #0077cc;
       margin-bottom: 10px;
       cursor: pointer;
       user-select: none;
-    }
-
-    .card h2:hover {
-      color: #005599;
+      transition: color 0.3s ease;
     }
 
     .card-content {
@@ -83,7 +136,7 @@
       display: flex;
       justify-content: space-between;
       padding: 6px 0;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid;
     }
 
     .info:last-child {
@@ -92,26 +145,129 @@
 
     .label {
       font-weight: bold;
-      color: #333;
-    }
-
-    .value {
-      color: #555;
     }
 
     .good {
-      color: #1b8d1b;
+      color: #4caf50 !important;
       font-weight: bold;
     }
 
     .unsure {
-      color: #e6a100;
+      color: #ff9800 !important;
       font-weight: bold;
     }
 
     .wrong {
-      color: #d63031;
+      color: #f44336 !important;
       font-weight: bold;
+    }
+
+    /* Dark theme (default) */
+    body {
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+    }
+
+    h1 {
+      color: #ffffff;
+    }
+
+    .search-box input {
+      border-color: #444;
+      background-color: #2d2d2d;
+      color: #e0e0e0;
+    }
+
+    .search-box input:focus {
+      border-color: #4da6ff;
+    }
+
+    .search-box input::placeholder {
+      color: #999;
+    }
+
+    .card {
+      background-color: #2d2d2d;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      border-color: #444;
+    }
+
+    .card:hover {
+      border-color: #555;
+    }
+
+    .card h2 {
+      color: #4da6ff;
+    }
+
+    .card h2:hover {
+      color: #66b3ff;
+    }
+
+    .info {
+      border-color: #444;
+    }
+
+    .label {
+      color: #cccccc;
+    }
+
+    .value {
+      color: #b0b0b0;
+    }
+
+    /* Light theme */
+    body.light-mode {
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    body.light-mode h1 {
+      color: #333;
+    }
+
+    body.light-mode .search-box input {
+      border-color: #ccc;
+      background-color: #fff;
+      color: #333;
+    }
+
+    body.light-mode .search-box input:focus {
+      border-color: #0077cc;
+    }
+
+    body.light-mode .search-box input::placeholder {
+      color: #666;
+    }
+
+    body.light-mode .card {
+      background-color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-color: #eee;
+    }
+
+    body.light-mode .card:hover {
+      border-color: #ddd;
+    }
+
+    body.light-mode .card h2 {
+      color: #0077cc;
+    }
+
+    body.light-mode .card h2:hover {
+      color: #005599;
+    }
+
+    body.light-mode .info {
+      border-color: #eee;
+    }
+
+    body.light-mode .label {
+      color: #333;
+    }
+
+    body.light-mode .value {
+      color: #555;
     }
 
     @media (max-width: 600px) {
@@ -123,10 +279,22 @@
       .value {
         margin-top: 4px;
       }
+
+      .theme-toggle {
+        top: 10px;
+        right: 10px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="theme-toggle">
+    <label class="theme-switch">
+      <input type="checkbox" id="themeToggle" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
   <div class="container">
     <h1>Character Choices</h1>
 
@@ -221,12 +389,29 @@
       </div>
     </div>
 
-    <div style="text-align: center; margin-top: 30px; padding: 20px; color: #999; font-size: 12px;">
+    <div style="text-align: center; margin-top: 30px; padding: 20px; color: #666; font-size: 12px;">
       @kai.obi
     </div>
   </div>
 
   <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    // Set initial theme (dark mode by default)
+    themeToggle.checked = true;
+
+    themeToggle.addEventListener('change', function() {
+      if (this.checked) {
+        // Dark mode (checkbox checked)
+        body.classList.remove('light-mode');
+      } else {
+        // Light mode (checkbox unchecked)
+        body.classList.add('light-mode');
+      }
+    });
+
     function toggleCard(header) {
       const content = header.nextElementSibling;
       content.style.display = content.style.display === "block" ? "none" : "block";
